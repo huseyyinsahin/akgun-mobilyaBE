@@ -1,5 +1,5 @@
 "use strict";
-const { BadRequestError } = require("../errors/customError");
+const { CustomError } = require("../errors/customError");
 
 const User = require("../models/user");
 
@@ -10,8 +10,9 @@ module.exports = {
         req?.body?.password
       )
     )
-      throw new BadRequestError(
-        "Password must be at least 8 characters long and contain at least one special character and  at least one uppercase character"
+      throw new CustomError(
+        "Şifre en az 8 karakter uzunluğunda olmalı ve en az bir özel karakter ile en az bir büyük harf içermelidir.",
+        401
       );
     const data = await User.create(req.body);
 
@@ -21,3 +22,4 @@ module.exports = {
     });
   },
 };
+//sonra silinecek

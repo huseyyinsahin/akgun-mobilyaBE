@@ -3,27 +3,23 @@
 const User = require("../models/user");
 const Token = require("../models/token");
 const passwordEncrypt = require("../helpers/passwordEncrypt");
-const {
-  UnauthorizedError,
-  BadRequestError,
-  NotFoundError,
-} = require("../errors/customError");
+const { CustomError } = require("../errors/customError");
 
 module.exports = {
   login: async (req, res) => {
     const { username, password } = req.body;
 
     if (!(username && password))
-      throw new BadRequestError("username and password are required");
+      throw new CustomError("Kullanıcı adı ve şifre zorunludur!", 400);
 
     const user = await User.findOne({ username });
 
-    if (!user) throw new NotFoundError("username is not found");
+    if (!user) throw new CustomError("Kullanıcı bulunamadı", 404);
 
-    if (!user.isAdmin) throw new UnauthorizedError("Admin değilsiniz");
+    if (!user.isAdmin) throw new CustomError("Admin değilsiniz", 401);
 
     if (user.password !== passwordEncrypt(password))
-      throw new UnauthorizedError("incorrect password");
+      throw new CustomError("Şifre yanlış", 401);
 
     let tokenData = await Token.findOne({ userId: user._id });
 
@@ -48,14 +44,14 @@ module.exports = {
       if (data.deletedCount) {
         res.send({
           error: false,
-          message: "Token deleted. Logout was OK.",
+          message: "Çıkış yapıldı",
           result,
         });
       } else {
-        throw new Error("Çıkış yapamazsınız");
+        throw new CustomError("Çıkış yapamazsınız", 401);
       }
     } else {
-      throw new Error("Çıkış yapamazsınız");
+      throw new CustomError("Çıkış yapamazsınız", 401);
     }
   },
 };
