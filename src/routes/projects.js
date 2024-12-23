@@ -8,6 +8,8 @@ const multer = require("multer");
 
 const { isAdmin } = require("../middlewares/permissions");
 
+const path = require("node:path");
+
 const upload = multer({
   storage: multer.diskStorage({
     destination: "./upload",
@@ -15,18 +17,31 @@ const upload = multer({
       returnCallback(null, Date.now() + "_" + file.originalname);
     },
   }),
+  fileFilter: function (req, file, returnCallback) {
+    const allowedExtensions = [".jpg", ".jpeg", ".png"];
+    const fileExtension = path.extname(file.originalname).toLowerCase();
+
+    if (allowedExtensions.includes(fileExtension)) {
+      returnCallback(null, true);
+    } else {
+      returnCallback(
+        new Error("Sadece .jpg, .jpeg ve .png dosyaları yüklenebilir!"),
+        false
+      );
+    }
+  },
 });
 
 router
   .route("/")
   .get(projects.list)
-  .post(isAdmin, upload.array("image"), projects.create);
+  .post(isAdmin, upload.array("images"), projects.create);
 
 router
   .route("/:id")
   .get(isAdmin, projects.read)
-  .put(isAdmin, upload.array("image"), projects.update)
-  .patch(isAdmin, upload.array("image"), projects.update)
+  .put(isAdmin, upload.array("images"), projects.update)
+  .patch(isAdmin, upload.array("images"), projects.update)
   .delete(isAdmin, projects.delete);
 
 module.exports = router;
