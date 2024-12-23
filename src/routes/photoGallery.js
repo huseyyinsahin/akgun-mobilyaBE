@@ -17,6 +17,8 @@ const upload = multer({
   }),
 });
 
+//multer ayarları detaylandırılıcak
+
 router
   .route("/")
   .get(photogallery.list)

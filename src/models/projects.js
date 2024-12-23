@@ -11,7 +11,7 @@ const ProjectsSchema = new mongoose.Schema(
       maxlength: [50, "Başlık en fazla 50 karakter olabilir."],
     },
 
-    image: {
+    images: {
       type: [String],
       required: [true, "Görsel alanı zorunludur."],
     },
