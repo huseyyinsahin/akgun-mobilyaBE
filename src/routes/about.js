@@ -10,7 +10,7 @@ router.route("/").get(about.list).post(isAdmin, about.create);
 
 router
   .route("/:id")
-  .get(isAdmin, about.read)
+  .get(about.read)
   .put(isAdmin, about.update)
   .patch(isAdmin, about.update)
   .delete(isAdmin, about.delete);

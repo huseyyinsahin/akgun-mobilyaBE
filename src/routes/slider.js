@@ -39,7 +39,7 @@ router
 
 router
   .route("/:id")
-  .get(isAdmin, slider.read)
+  .get(slider.read)
   .put(isAdmin, upload.single("image"), slider.update)
   .patch(isAdmin, upload.single("image"), slider.update)
   .delete(isAdmin, slider.delete);

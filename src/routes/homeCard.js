@@ -10,7 +10,7 @@ router.route("/").get(homeCard.list).post(isAdmin, homeCard.create);
 
 router
   .route("/:id")
-  .get(isAdmin, homeCard.read)
+  .get(homeCard.read)
   .put(isAdmin, homeCard.update)
   .patch(isAdmin, homeCard.update)
   .delete(isAdmin, homeCard.delete);

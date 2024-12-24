@@ -39,7 +39,7 @@ router
 
 router
   .route("/:id")
-  .get(isAdmin, photogallery.read)
+  .get(photogallery.read)
   .put(isAdmin, upload.single("image"), photogallery.update)
   .patch(isAdmin, upload.single("image"), photogallery.update)
   .delete(isAdmin, photogallery.delete);

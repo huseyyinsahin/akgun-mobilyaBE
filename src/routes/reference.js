@@ -10,7 +10,7 @@ router.route("/").get(reference.list).post(isAdmin, reference.create);
 
 router
   .route("/:id")
-  .get(isAdmin, reference.read)
+  .get(reference.read)
   .put(isAdmin, reference.update)
   .patch(isAdmin, reference.update)
   .delete(isAdmin, reference.delete);

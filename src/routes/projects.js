@@ -39,7 +39,7 @@ router
 
 router
   .route("/:id")
-  .get(isAdmin, projects.read)
+  .get(projects.read)
   .put(isAdmin, upload.array("images"), projects.update)
   .patch(isAdmin, upload.array("images"), projects.update)
   .delete(isAdmin, projects.delete);
