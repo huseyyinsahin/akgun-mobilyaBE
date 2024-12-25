@@ -1,18 +1,18 @@
 "use strict";
 
-const photoGallery = require("../models/photoGallery");
+const PhotoGallery = require("../models/photoGallery");
 const fs = require("node:fs");
 
 const { CustomError } = require("../errors/customError");
 
 module.exports = {
   list: async (req, res) => {
-    const data = await photoGallery.find();
+    const data = await PhotoGallery.find();
 
     res.status(200).send({
       error: false,
       data,
-      details: await res.getModelListDetails(photoGallery),
+      details: await res.getModelListDetails(PhotoGallery),
     });
   },
 
@@ -22,7 +22,7 @@ module.exports = {
       req.body.image = req.file.path;
     }
 
-    const data = await photoGallery.create(req.body);
+    const data = await PhotoGallery.create(req.body);
 
     res.status(201).send({
       error: false,
@@ -31,7 +31,7 @@ module.exports = {
   },
 
   read: async (req, res) => {
-    const data = await photoGallery.findOne({ _id: req.params.id });
+    const data = await PhotoGallery.findOne({ _id: req.params.id });
 
     res.status(200).send({
       error: false,
@@ -47,7 +47,7 @@ module.exports = {
 
     const { image } = req.body;
     if (image) {
-      const deleteImage = await photoGallery.findOne({ _id: req.params.id });
+      const deleteImage = await PhotoGallery.findOne({ _id: req.params.id });
 
       if (deleteImage && deleteImage.image) {
         const oldImagePath = `${deleteImage.image}`;
@@ -60,7 +60,7 @@ module.exports = {
       throw new CustomError("Veri doğru formatta gönderilmedi!", 400);
     }
 
-    const data = await photoGallery.updateOne(
+    const data = await PhotoGallery.updateOne(
       { _id: req.params.id },
       req.body,
       {
@@ -71,12 +71,12 @@ module.exports = {
     res.status(202).send({
       error: false,
       data,
-      new: await photoGallery.findOne({ _id: req.params.id }),
+      new: await PhotoGallery.findOne({ _id: req.params.id }),
     });
   },
 
   delete: async (req, res) => {
-    const deleteImage = await photoGallery.findOne({ _id: req.params.id });
+    const deleteImage = await PhotoGallery.findOne({ _id: req.params.id });
     if (deleteImage && deleteImage.image) {
       const imagePath = `${deleteImage.image}`;
 
@@ -85,7 +85,7 @@ module.exports = {
       }
     }
 
-    const data = await photoGallery.deleteOne({ _id: req.params.id });
+    const data = await PhotoGallery.deleteOne({ _id: req.params.id });
 
     res.status(data.deletedCount ? 204 : 404).send({
       error: !data.deletedCount,

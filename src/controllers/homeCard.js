@@ -1,10 +1,10 @@
 "use strict";
 
-const homeCard = require("../models/homeCard");
+const HomeCard = require("../models/homeCard");
 
 module.exports = {
   list: async (req, res) => {
-    const data = await homeCard.find();
+    const data = await HomeCard.find();
 
     res.status(200).send({
       error: false,
@@ -13,7 +13,7 @@ module.exports = {
   },
 
   create: async (req, res) => {
-    const data = await homeCard.create(req.body);
+    const data = await HomeCard.create(req.body);
 
     res.status(201).send({
       error: false,
@@ -22,7 +22,7 @@ module.exports = {
   },
 
   read: async (req, res) => {
-    const data = await homeCard.findOne({ _id: req.params.id });
+    const data = await HomeCard.findOne({ _id: req.params.id });
 
     res.status(200).send({
       error: false,
@@ -31,19 +31,19 @@ module.exports = {
   },
 
   update: async (req, res) => {
-    const data = await homeCard.updateOne({ _id: req.params.id }, req.body, {
+    const data = await HomeCard.updateOne({ _id: req.params.id }, req.body, {
       runValidators: true,
     });
 
     res.status(202).send({
       error: false,
       data,
-      new: await homeCard.findOne({ _id: req.params.id }),
+      new: await HomeCard.findOne({ _id: req.params.id }),
     });
   },
 
   delete: async (req, res) => {
-    const data = await homeCard.deleteOne({ _id: req.params.id });
+    const data = await HomeCard.deleteOne({ _id: req.params.id });
 
     res.status(data.deletedCount ? 204 : 404).send({
       error: !data.deletedCount,
