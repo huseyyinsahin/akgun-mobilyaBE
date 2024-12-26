@@ -18,8 +18,8 @@ const ProjectsSchema = new mongoose.Schema(
 
     text: {
       type: String,
-      required: [true, "Metin alanı zorunludur."],
       trim: true,
+      required: [true, "Metin alanı zorunludur."],
     },
   },
   {

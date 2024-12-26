@@ -7,7 +7,7 @@ const ReferenceSchema = new mongoose.Schema(
     reference: {
       type: String,
       trim: true,
-      unique:true,
+      unique: [true, "Bu referansı daha önce kullanmışsınız."],
       required: [true, "Referans alanı zorunludur."],
       maxlength: [18, "Referans en fazla 18 karakter olabilir."],
     },

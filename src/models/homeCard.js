@@ -13,8 +13,8 @@ const HomeCardSchema = new mongoose.Schema(
 
     text: {
       type: String,
-      required: [true, "Açıklama alanı zorunludur."],
       trim: true,
+      required: [true, "Açıklama alanı zorunludur."],
       maxlength: [350, "Başlık en fazla 350 karakter olabilir."],
     },
   },
