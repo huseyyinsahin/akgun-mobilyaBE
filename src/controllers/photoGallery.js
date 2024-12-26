@@ -40,26 +40,28 @@ module.exports = {
   },
 
   update: async (req, res) => {
-    req.body.image = "";
-    if (req.file) {
-      req.body.image = req.file.path;
-    }
-
-    const { image } = req.body;
-    if (image) {
-      const deleteImage = await PhotoGallery.findOne({ _id: req.params.id });
-
-      if (deleteImage && deleteImage.image) {
-        const oldImagePath = `${deleteImage.image}`;
-
-        if (fs.existsSync(oldImagePath)) {
-          fs.unlinkSync(oldImagePath);
-        }
+    if (!req.body.image) {
+       // req.body.image varsa resim silinmemiş demektir ve herhangi bir işleme gerek yoktur ama eğer gönderilmemişse yeni resim gelmiş demektir.
+       req.body.image = "";
+      if (req.file) {
+        req.body.image = req.file.path;
       }
-    } else {
-      throw new CustomError("Veri doğru formatta gönderilmedi!", 400);
-    }
 
+      const { image } = req.body;
+      if (image) {
+        const deleteImage = await PhotoGallery.findOne({ _id: req.params.id });
+
+        if (deleteImage && deleteImage.image) {
+          const oldImagePath = `${deleteImage.image}`;
+
+          if (fs.existsSync(oldImagePath)) {
+            fs.unlinkSync(oldImagePath);
+          }
+        }
+      } else {
+        throw new CustomError("Veri doğru formatta gönderilmedi!", 400);
+      }
+    }
     const data = await PhotoGallery.updateOne(
       { _id: req.params.id },
       req.body,

@@ -35,13 +35,13 @@ const upload = multer({
 router
   .route("/")
   .get(photogallery.list)
-  .post(isAdmin, upload.single("image"), photogallery.create);
+  .post(isAdmin, upload.single("images"), photogallery.create);
 
 router
   .route("/:id")
   .get(photogallery.read)
-  .put(isAdmin, upload.single("image"), photogallery.update)
-  .patch(isAdmin, upload.single("image"), photogallery.update)
+  .put(isAdmin, upload.single("images"), photogallery.update)
+  .patch(isAdmin, upload.single("images"), photogallery.update)
   .delete(isAdmin, photogallery.delete);
 
 module.exports = router;

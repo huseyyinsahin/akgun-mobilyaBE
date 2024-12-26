@@ -42,9 +42,6 @@ module.exports = {
   },
 
   update: async (req, res) => {
-    if (!req.body.images) {
-      req.body.images = [];
-    }
     if (req.files) {
       for (let file of req.files) {
         req.body.images.push(file.path);
@@ -59,6 +56,7 @@ module.exports = {
       if (project && project.images) {
         const imagesToDelete = project.images.filter(
           (deleteImagePath) => !req.body.images.includes(deleteImagePath)
+          // eski projects de bulunan ama yeni gönderilen projects de bulunmayan resimler imagesToDelete e atandı bunlar silinecek
         );
 
         imagesToDelete.forEach((imagePath) => {
