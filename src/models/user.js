@@ -24,15 +24,6 @@ const UserSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: [true, "Şifre zorunludur."],
-      validate: {
-        validator: function (value) {
-          const passwordRegex =
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-          return passwordRegex.test(value);
-        },
-        message:
-          "Şifre en az 8 karakter uzunluğunda olmalı, bir büyük harf, bir küçük harf, bir rakam ve bir özel karakter içermelidir.",
-      },
       set: passwordEncrypt,
     },
 
