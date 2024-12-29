@@ -17,6 +17,12 @@ dbConnection();
 
 /* ------------------------------------------------------- */
 
+app.use(
+  cors({
+    origin: "*",
+  })
+);
+
 app.use(express.json());
 
 app.use(require("./src/middlewares/authentication"));
