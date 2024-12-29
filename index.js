@@ -16,6 +16,9 @@ require("express-async-errors");
 const { dbConnection } = require("./src/configs/dbConnection");
 dbConnection();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 /* ------------------------------------------------------- */
 
 app.use(
@@ -23,8 +26,6 @@ app.use(
     origin: "*",
   })
 );
-
-app.use(express.json());
 
 app.use(require("./src/middlewares/authentication"));
 
