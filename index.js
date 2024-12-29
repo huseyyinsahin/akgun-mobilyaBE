@@ -2,7 +2,7 @@
 
 const express = require("express");
 const app = express();
-const cors = require('cors');
+const cors = require("cors");
 
 /* ------------------------------------------------------- */
 
@@ -31,6 +31,8 @@ app.use(require("./src/middlewares/authentication"));
 app.use(require("./src/middlewares/queryHandler"));
 
 /* ------------------------------------------------------- */
+
+app.use("/upload", express.static("./upload"));
 
 app.use("/", require("./src/routes/"));
 
