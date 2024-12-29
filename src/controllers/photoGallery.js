@@ -7,7 +7,7 @@ const { CustomError } = require("../errors/customError");
 
 module.exports = {
   list: async (req, res) => {
-    const data = await PhotoGallery.find();
+    const data = await res.getModelList(PhotoGallery);
 
     res.status(200).send({
       error: false,
