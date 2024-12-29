@@ -12,21 +12,26 @@ module.exports = {
     if (!(username && password))
       throw new CustomError("Kullanıcı adı ve şifre zorunludur!", 400);
 
-    const user = await User.findOne({ username });
+    const userControl = await User.findOne({ username });
 
-    if (!user) throw new CustomError("Kullanıcı bulunamadı", 404);
+    if (!userControl) throw new CustomError("Kullanıcı bulunamadı", 404);
 
-    if (!user.isAdmin) throw new CustomError("Admin değilsiniz", 401);
+    if (!userControl.isAdmin) throw new CustomError("Admin değilsiniz", 401);
 
-    if (user.password !== passwordEncrypt(password))
+    if (userControl.password !== passwordEncrypt(password))
       throw new CustomError("Şifre yanlış", 401);
 
-    let tokenData = await Token.findOne({ userId: user._id });
+    let tokenData = await Token.findOne({ userId: userControl._id });
 
     if (!tokenData) {
-      const tokenKey = passwordEncrypt(user._id + Date.now());
-      tokenData = await Token.create({ userId: user._id, token: tokenKey });
+      const tokenKey = passwordEncrypt(userControl._id + Date.now());
+      tokenData = await Token.create({
+        userId: userControl._id,
+        token: tokenKey,
+      });
     }
+
+    const user = await User.findOne({ username }, { password: 0 });
 
     res.status(200).send({
       error: false,
