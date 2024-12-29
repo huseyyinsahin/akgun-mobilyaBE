@@ -36,6 +36,12 @@ app.use("/upload", express.static("./upload"));
 
 app.use("/", require("./src/routes/"));
 
+app.all("/", (req, res) => {
+  res.send({
+    message: "Akgün Mobilya",
+  });
+});
+
 /* ------------------------------------------------------- */
 
 app.use(require("./src/middlewares/errorHandler"));
