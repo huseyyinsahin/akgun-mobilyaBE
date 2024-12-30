@@ -17,10 +17,10 @@ module.exports = {
   },
 
   create: async (req, res) => {
-    req.body.images = [];
+    req.body.image = [];
     if (req.files) {
       for (let file of req.files) {
-        req.body.images.push(file.path);
+        req.body.image.push(file.path);
       }
     }
 
@@ -44,7 +44,7 @@ module.exports = {
   update: async (req, res) => {
     if (req.files) {
       for (let file of req.files) {
-        req.body.images.push(file.path);
+        req.body.image.push(file.path);
       }
     }
 
