@@ -47,10 +47,9 @@ module.exports = {
     if (tokenKey[0] == "Token") {
       const data = await Token.deleteOne({ token: tokenKey[1] });
       if (data.deletedCount) {
-        res.send({
+        res.status(200).send({
           error: false,
           message: "Çıkış yapıldı",
-          result,
         });
       } else {
         throw new CustomError("Çıkış yapamazsınız", 401);
