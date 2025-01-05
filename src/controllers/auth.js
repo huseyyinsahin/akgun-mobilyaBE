@@ -43,7 +43,7 @@ module.exports = {
   logout: async (req, res) => {
     const auth = req.headers?.authorization || null;
     const tokenKey = auth ? auth.split(" ") : null;
-console.log(tokenKey);
+
     if (tokenKey[0] == "Token") {
       const data = await Token.deleteOne({ token: tokenKey[1] });
       if (data.deletedCount) {
