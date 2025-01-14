@@ -1,9 +1,9 @@
-"use strict";
+// "use strict";
 
-const router = require("express").Router();
+// const router = require("express").Router();
 
-const user = require("../controllers/user");
+// const user = require("../controllers/user");
 
-router.post("/register", user.create);
+// router.post("/register", user.create);
 
-module.exports = router;
+// module.exports = router;
