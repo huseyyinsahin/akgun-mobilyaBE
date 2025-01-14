@@ -4,7 +4,7 @@ const router = require("express").Router();
 
 router.use("/auth", require("./auth"));
 
-// router.use("/user", require("./user.js"));
+router.use("/user", require("./user.js"));
 
 router.use("/slider", require("./slider.js"));
 
@@ -20,4 +20,3 @@ router.use("/projects", require("./projects.js"));
 
 module.exports = router;
 
-// 
