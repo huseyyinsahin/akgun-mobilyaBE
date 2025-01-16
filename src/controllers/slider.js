@@ -56,6 +56,8 @@ module.exports = {
           if (fs.existsSync(oldImagePath)) {
             fs.unlinkSync(oldImagePath);
           }
+        } else {
+          throw new CustomError("Veri bulunamadı!", 404);
         }
       } else {
         throw new CustomError("Veri doğru formatta gönderilmedi!", 400);

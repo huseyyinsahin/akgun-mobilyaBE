@@ -48,14 +48,14 @@ module.exports = {
       }
     }
 
-    const { title, images, text } = req.body;
+    const { title, image, text } = req.body;
 
-    if (title && title.length < 50 && images && text) {
+    if (title && title.length < 50 && image && text) {
       const project = await Projects.findOne({ _id: req.params.id });
 
-      if (project && project.images) {
-        const imagesToDelete = project.images.filter(
-          (deleteImagePath) => !req.body.images.includes(deleteImagePath)
+      if (project && project.image) {
+        const imagesToDelete = project.image.filter(
+          (deleteImagePath) => !req.body.image.includes(deleteImagePath)
           // eski projects de bulunan ama yeni gönderilen projects de bulunmayan resimler imagesToDelete e atandı bunlar silinecek
         );
 
@@ -64,6 +64,8 @@ module.exports = {
             fs.unlinkSync(imagePath);
           }
         });
+      } else {
+        throw new CustomError("Veri bulunamadı!", 404);
       }
     } else {
       throw new CustomError("Veri doğru formatta gönderilmedi!", 400);
