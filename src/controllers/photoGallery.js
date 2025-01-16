@@ -41,8 +41,8 @@ module.exports = {
 
   update: async (req, res) => {
     if (!req.body.image) {
-       // req.body.image varsa resim silinmemiş demektir ve herhangi bir işleme gerek yoktur ama eğer gönderilmemişse yeni resim gelmiş demektir.
-       req.body.image = "";
+      // req.body.image varsa resim silinmemiş demektir ve herhangi bir işleme gerek yoktur ama eğer gönderilmemişse yeni resim gelmiş demektir.
+      req.body.image = "";
       if (req.file) {
         req.body.image = req.file.path;
       }
@@ -79,12 +79,15 @@ module.exports = {
 
   delete: async (req, res) => {
     const deleteImage = await PhotoGallery.findOne({ _id: req.params.id });
+
     if (deleteImage && deleteImage.image) {
       const imagePath = `${deleteImage.image}`;
 
       if (fs.existsSync(imagePath)) {
         fs.unlinkSync(imagePath);
       }
+    } else {
+      throw new CustomError("Böyle bir kayıt yok!", 404);
     }
 
     const data = await PhotoGallery.deleteOne({ _id: req.params.id });

@@ -89,6 +89,8 @@ module.exports = {
           fs.unlinkSync(item);
         }
       });
+    } else {
+      throw new CustomError("Böyle bir kayıt yok!", 404);
     }
 
     const data = await Projects.deleteOne({ _id: req.params.id });

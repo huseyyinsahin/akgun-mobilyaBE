@@ -75,12 +75,15 @@ module.exports = {
 
   delete: async (req, res) => {
     const deleteImage = await Slider.findOne({ _id: req.params.id });
+
     if (deleteImage && deleteImage.image) {
       const imagePath = `${deleteImage.image}`;
 
       if (fs.existsSync(imagePath)) {
         fs.unlinkSync(imagePath);
       }
+    } else {
+      throw new CustomError("Böyle bir kayıt yok!", 404);
     }
 
     const data = await Slider.deleteOne({ _id: req.params.id });
