@@ -10,7 +10,7 @@ module.exports = {
     const data = await res.getModelList(
       Projects,
       {},
-      { image: { $slice: 1 }, text: 0 }
+      { image: { $slice: 1 }, text: 0 }  // listeleme yapılırken sadece birinci fotograf gitsin ve açıklama hiç gitmesin diye yaptık (1. fotograf ve title gidicek sadece)
     );
 
     res.status(200).send({
