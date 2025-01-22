@@ -7,7 +7,11 @@ const { CustomError } = require("../errors/customError");
 
 module.exports = {
   list: async (req, res) => {
-    const data = await res.getModelList(Projects);
+    const data = await res.getModelList(
+      Projects,
+      { image: { $slice: 1 } },
+      { text: 0 }
+    );
 
     res.status(200).send({
       error: false,

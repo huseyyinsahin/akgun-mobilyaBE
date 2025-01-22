@@ -5,7 +5,7 @@ module.exports = (req, res, next) => {
 
   const search = req.query?.search || {};
   for (let key in search) search[key] = { $regex: search[key], $options: "i" };
-  
+
   const sort = req.query?.sort || {};
 
   let limit = Number(req.query?.limit);
@@ -17,10 +17,15 @@ module.exports = (req, res, next) => {
   let skip = Number(req.query?.skip);
   skip = skip > 0 ? skip : page * limit;
 
-  res.getModelList = async (Model, customFilter = {}, populate = null) => {
+  res.getModelList = async (
+    Model,
+    customFilter = {},
+    notReturn,
+    populate = null
+  ) => {
     return await Model.find(
       { ...filter, ...search, ...customFilter },
-      { password: 0, __v: 0 }
+      { password: 0, __v: 0, ...notReturn }
     )
       .sort(sort)
       .skip(skip)
