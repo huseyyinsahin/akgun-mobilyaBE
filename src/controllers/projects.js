@@ -9,8 +9,8 @@ module.exports = {
   list: async (req, res) => {
     const data = await res.getModelList(
       Projects,
-      { image: { $slice: 1 } },
-      { text: 0 }
+      {},
+      { image: { $slice: 1 }, text: 0 }
     );
 
     res.status(200).send({
