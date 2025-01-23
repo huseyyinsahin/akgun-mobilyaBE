@@ -14,6 +14,12 @@ const ProjectsSchema = new mongoose.Schema(
     image: {
       type: [String],
       required: [true, "Görsel alanı zorunludur."],
+      validate: {
+        validator: function (value) {
+          return value.length > 0;
+        },
+        message: "En az bir görsel yüklenmelidir.",
+      },
     },
 
     text: {
