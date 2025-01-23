@@ -10,7 +10,7 @@ module.exports = {
     const data = await res.getModelList(
       Projects,
       {},
-      { image: { $slice: 1 }, text: 0 }  // listeleme yapılırken sadece birinci fotograf gitsin ve açıklama hiç gitmesin diye yaptık (1. fotograf ve title gidicek sadece)
+      { image: { $slice: 1 }, text: 0 } // listeleme yapılırken sadece birinci fotograf gitsin ve açıklama hiç gitmesin diye yaptık (1. fotograf ve title gidicek sadece)
     );
 
     res.status(200).send({
@@ -47,6 +47,10 @@ module.exports = {
 
   update: async (req, res) => {
     if (req.files) {
+      if (!req.body.image) {
+        //req.body.image yoksa boş bir dizi aç (içi doluysa demekki zaten bazı silinmemiş resimleri getirmiştir. Direkt olarak onun içerisine yeni resimleri pushlayabiliriz. Eğer yoksa bizim açmamız gerekiyor!)
+        req.body.image = [];
+      }
       for (let file of req.files) {
         req.body.image.push(file.path);
       }
