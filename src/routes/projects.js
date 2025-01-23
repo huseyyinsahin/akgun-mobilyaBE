@@ -11,13 +11,13 @@ const upload = require("../middlewares/upload");
 router
   .route("/")
   .get(projects.list)
-  .post(isAdmin, upload.array("images"), projects.create);
+  .post(isAdmin, upload.any(), projects.create);
 
 router
   .route("/:id")
   .get(projects.read)
-  .put(isAdmin, upload.array("images"), projects.update)
-  .patch(isAdmin, upload.array("images"), projects.update)
+  .put(isAdmin, upload.any(), projects.update)
+  .patch(isAdmin, upload.any(), projects.update)
   .delete(isAdmin, projects.delete);
 
 module.exports = router;

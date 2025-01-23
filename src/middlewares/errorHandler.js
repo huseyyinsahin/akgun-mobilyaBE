@@ -6,6 +6,5 @@ module.exports = (err, req, res, next) => {
     message: err.message,
     cause: err.cause,
     body: req.body,
-    errorField: err.field,
   });
 };
