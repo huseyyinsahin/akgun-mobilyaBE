@@ -20,7 +20,8 @@ dbConnection();
 
 app.use(
   cors({
-    origin: "*",
+    origin: ["https://akgunmobilya.com", "https://www.akgunmobilya.com"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
 
